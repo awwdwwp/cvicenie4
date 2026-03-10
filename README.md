@@ -1,3 +1,18 @@
+## Screenshots
+<img src="screenshots/Screenshot 2026-03-10 175353.png">
+<img src="screenshots/Screenshot 2026-03-10 175525.png">
+<img src="screenshots/Screenshot 2026-03-10 175559.png">
+<img src="screenshots/Screenshot 2026-03-10 175634.png">
+<img src="screenshots/Screenshot 2026-03-10 175735.png">
+<img src="screenshots/Screenshot 2026-03-10 175936.png">
+<img src="screenshots/Screenshot 2026-03-10 181747.png">
+<img src="screenshots/Screenshot 2026-03-10 181828.png">
+<img src="screenshots/Screenshot 2026-03-10 181917.png">
+<img src="screenshots/Screenshot 2026-03-10 181957.png">
+<img src="screenshots/Screenshot 2026-03-10 182132.png">
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
