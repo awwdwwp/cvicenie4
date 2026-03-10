@@ -59,6 +59,16 @@ class NoteController extends Controller
         ], Response::HTTP_OK);
     }
 
+    public function showTen() {
+        $notes = DB::table('notes')
+            ->whereNull('deleted_at')
+            ->orderBy('updated_at', 'desc')
+            ->limit(10)
+            ->get();
+
+        return response()->json(['notes' => $notes], Response::HTTP_OK);
+    }
+
     /**
      * Update the specified resource in storage.
      */
