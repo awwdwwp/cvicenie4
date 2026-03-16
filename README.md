@@ -1,4 +1,15 @@
-## Screenshots
+## Screenshots (Cvicenie 5)
+<img src="screenshots/Screenshot 2026-03-16 173011.png">
+<img src="screenshots/Screenshot 2026-03-16 173042.png">
+<img src="screenshots/Screenshot 2026-03-16 173116.png">
+<img src="screenshots/Screenshot 2026-03-16 173132.png">
+<img src="screenshots/Screenshot 2026-03-16 173658.png">
+<img src="screenshots/Screenshot 2026-03-16 173711.png">
+<img src="screenshots/Screenshot 2026-03-16 173726.png">
+<img src="screenshots/Screenshot 2026-03-16 173817.png">
+<img src="screenshots/Screenshot 2026-03-16 173838.png">
+
+## Screenshots (Cvicenie 4)
 <img src="screenshots/Screenshot 2026-03-10 175353.png">
 <img src="screenshots/Screenshot 2026-03-10 175525.png">
 <img src="screenshots/Screenshot 2026-03-10 175559.png">
