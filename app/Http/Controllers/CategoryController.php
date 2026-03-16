@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
@@ -13,8 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')
-            ->orderBY('updated_at', 'DESC')
+        $categories = Category::query()
+            ->orderByDesc('updated_at')
             ->get();
         return response()->json(['categories' => $categories], Response::HTTP_OK);
     }
@@ -24,15 +24,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('categories')->insert([
-            'id' => $request->id,
+        $category = Category::create([
             'name' => $request->name,
-            'created_at' => now(),
-            'updated_at' => now()
         ]);
-
         return response()->json([
-            'message' => 'Kategoria bola uspesne vytvorena.'
+            'message' => 'Kategoria bola uspesne vytvorena',
+            'category' => $category,
         ], Response::HTTP_CREATED);
     }
 
@@ -41,9 +38,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $category = DB::table('categories')
-            ->where('id', $id)
-            ->first();
+        $category = Category::find($id);
         if (!$category) {
             return response()->json([
                 'message' => 'Kategoria nenajdena.'
@@ -57,16 +52,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $category = DB::table('categories')->where('id', $id)->first();
+        $category = Category::find($id);
         if (!$category) {
             return response()->json([
-                'message' => 'Kategoria nenalezena.'
+                'message' => 'Kategoria nenajdena.'
             ], Response::HTTP_NOT_FOUND);
         }
 
-        DB::table('categories')->where('id', $id)->update([
+        $category->update([
             'name' => $request->name,
-            'updated_at' => now(),
         ]);
 
         return response()->json([
@@ -79,13 +73,13 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = DB::table('categories')->where('id', $id)->first();
+        $category = Category::find($id);
         if (!$category) {
             return response()->json([
-                'message' => 'Kategoria nenalezena.'
+                'message' => 'Kategoria nenajdena.'
             ], Response::HTTP_NOT_FOUND);
         }
-        DB::table('categories')->where('id', $id)->delete(); //HARD DELETE only
+        $category->delete();
 
         return response()->json([
            'message' => 'Kategoria odstranena'
