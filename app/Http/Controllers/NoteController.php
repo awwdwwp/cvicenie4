@@ -6,6 +6,7 @@ use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class NoteController extends Controller
 {
@@ -16,10 +17,18 @@ class NoteController extends Controller
     public function index()
     {
         $notes = Note::query()
-            ->orderByDesc('updated_at')
+            ->select(['id', 'user_id', 'title', 'body', 'status', 'is_pinned', 'created_at'])
+            ->with([
+                'user:id,first_name,last_name',
+                'categories:id,name,color',
+            ])
+            ->orderByDesc('is_pinned')
+            ->orderByDesc('created_at')
             ->get();
 
-        return response()->json(['notes' => $notes], Response::HTTP_OK);
+        return response()->json([
+            'notes' => $notes,
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -28,15 +37,36 @@ class NoteController extends Controller
 
     public function store(Request $request)
     {
-        $note = Note::create([
-            'user_id' => $request->user_id,
-            'title' => $request->title,
-            'body' => $request->body,
+        $validated = $request->validate([
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+            'body'  => ['nullable', 'string'],
+            'status' => ['sometimes', 'required', 'string', Rule::in(['draft', 'published', 'archived'])],
+            'is_pinned' => ['sometimes', 'boolean'],
+
+            'categories' => ['sometimes', 'array', 'max:3'],
+            'categories.*' => ['integer', 'distinct', 'exists:categories,id'],
         ]);
+
+        $note = Note::create([
+            'user_id'   => $validated['user_id'],
+            'title'     => $validated['title'],
+            'body'      => $validated['body'] ?? null,
+            'status'    => $validated['status'] ?? 'draft',
+            'is_pinned' => $validated['is_pinned'] ?? false,
+        ]);
+
+        if (!empty($validated['categories'])) {
+            $note->categories()->sync($validated['categories']);
+        }
 
         return response()->json([
             'message' => 'Poznámka bola úspešne vytvorená.',
-            'note' => $note,
+            'note' => $note->load([
+                'user:id,first_name,last_name',
+                'categories:id,name,color',
+            ]),
         ], Response::HTTP_CREATED);
     }
 
@@ -46,13 +76,25 @@ class NoteController extends Controller
 
     public function show(string $id)
     {
-        $note = Note::find($id);
+        $note = Note::query()
+            ->with([
+                'user',
+                'categories',
+                'tasks.comments',
+                'comments'
+            ])
+            ->where('id', $id)
+            ->first();
 
         if (!$note) {
-            return response()->json(['message' => 'Poznámka nenájdená.'], Response::HTTP_NOT_FOUND);
+            return response()->json([
+                'message' => 'Poznamka nenajdena'
+            ], Response::HTTP_NOT_FOUND);
         }
 
-        return response()->json(['note' => $note], Response::HTTP_OK);
+        return response()->json([
+            'note' => $note,
+        ], Response::HTTP_OK);
     }
 
     /**

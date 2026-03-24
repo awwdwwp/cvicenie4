@@ -17,7 +17,6 @@ class Category extends Model
 
     public function notes() {
         return $this->belongsToMany(Note::class, 'note_category',
-            'category_id',
-            'note_id');
+            'category_id')->withTimestamps();
     }
 }

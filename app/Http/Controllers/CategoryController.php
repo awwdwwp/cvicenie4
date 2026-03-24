@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,9 +25,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create([
-            'name' => $request->name,
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:64', 'unique:categories,name'],
+            'color' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
         ]);
+
+        $category = Category::create([
+            'name' => $validated['name'],
+            'color' => $validated['color'] ?? '#808080',
+        ]);
+
         return response()->json([
             'message' => 'Kategoria bola uspesne vytvorena',
             'category' => $category,
@@ -53,18 +61,31 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $category = Category::find($id);
+
         if (!$category) {
             return response()->json([
                 'message' => 'Kategoria nenajdena.'
             ], Response::HTTP_NOT_FOUND);
         }
 
+        $validated = $request->validate([
+           'name' => [
+               'required',
+               'string',
+               'max:64',
+               Rule::unique('categories', 'name')->ignore($category->id),
+           ] ,
+            'color' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+        ]);
+
         $category->update([
-            'name' => $request->name,
+            'name' => $validated['name'],
+            'color' => $validated['color'] ?? $category->color,
         ]);
 
         return response()->json([
-            'message' => 'Kategoria bola uspesne upravena.'
+            'message' => 'Kategoria bola uspesne upravena',
+            'category' => $category,
         ], Response::HTTP_OK);
     }
 
