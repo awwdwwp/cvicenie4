@@ -1,3 +1,9 @@
+## Screenshots (Cvicenie 7)
+<img src="screenshots/cvicenie7/Знімок екрана 2026-03-31 212720.png">
+<img src="screenshots/cvicenie7/Знімок екрана 2026-03-31 212824.png">
+<img src="screenshots/cvicenie7/Знімок екрана 2026-03-31 212917.png">
+<img src="screenshots/cvicenie7/Знімок екрана 2026-03-31 213414.png">
+
 ## Screenshots (Cvicenie 5)
 <img src="screenshots/Screenshot 2026-03-16 173011.png">
 <img src="screenshots/Screenshot 2026-03-16 173042.png">
