@@ -1,3 +1,13 @@
+## Screenshots (Cvicenie 8)
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 224843.png">
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 225023.png">
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 225134.png">
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 225206.png">
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 225723.png">
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 225851.png">
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 230200.png">
+<img src="screenshots/cvicenie8/Знімок екрана 2026-04-13 230532.png">
+
 ## Screenshots (Cvicenie 7)
 <img src="screenshots/cvicenie7/Знімок екрана 2026-03-31 212720.png">
 <img src="screenshots/cvicenie7/Знімок екрана 2026-03-31 212824.png">
